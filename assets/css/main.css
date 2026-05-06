@@ -1,0 +1,911 @@
+/* =============================================================================
+   Design Tokens
+   ============================================================================= */
+
+:root {
+    --paper:   #f5f0e8;
+    --ink:     #1a1a1a;
+    --rust:    #c0622f;
+    --muted:   #888888;
+    --rule:    #c8c0b4;
+    --max-w:   900px;
+    --pad:     1.5rem;
+}
+
+/* =============================================================================
+   Reset & Base
+   ============================================================================= */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.7;
+}
+
+a {
+    color: var(--rust);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Screen-reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* =============================================================================
+   Layout
+   ============================================================================= */
+
+.sc-container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+}
+
+.sc-main {
+    padding: 3rem 0 5rem;
+}
+
+/* =============================================================================
+   Header / Nav
+   ============================================================================= */
+
+.sc-header {
+    border-bottom: 3px solid var(--ink);
+    position: relative;
+}
+
+.sc-header__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 1.25rem var(--pad);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.sc-header__logo {
+    font-size: 1.4rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.sc-header__logo:hover {
+    text-decoration: none;
+    opacity: 0.75;
+}
+
+.sc-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.sc-nav li a,
+.sc-nav > li > a {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.sc-nav li a:hover {
+    color: var(--rust);
+    text-decoration: none;
+}
+
+.sc-nav__search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--ink);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+.sc-nav__search-btn:hover {
+    color: var(--rust);
+}
+
+.sc-nav__hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--ink);
+    font-size: 1.25rem;
+    line-height: 1;
+}
+
+.sc-nav--mobile {
+    display: none;
+    padding: 1rem var(--pad) 1.25rem;
+    border-top: 1px solid var(--rule);
+    max-width: var(--max-w);
+    margin: 0 auto;
+}
+
+.sc-nav--mobile.is-open {
+    display: block;
+}
+
+.sc-nav--mobile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+}
+
+.sc-nav--mobile a,
+.sc-nav--mobile button {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    font-family: Georgia, serif;
+}
+
+.sc-nav--mobile a:hover,
+.sc-nav--mobile button:hover {
+    color: var(--rust);
+}
+
+/* =============================================================================
+   Search Overlay
+   ============================================================================= */
+
+.sc-search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0 0 auto 0;
+    background: var(--paper);
+    border-bottom: 3px solid var(--ink);
+    z-index: 200;
+    padding: 1.25rem var(--pad);
+}
+
+.sc-search-overlay.is-open {
+    display: block;
+}
+
+.sc-search-overlay__form {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sc-search-overlay__input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--ink);
+    padding: 0.25rem 0;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink);
+    outline: none;
+}
+
+.sc-search-overlay__input::placeholder {
+    color: var(--muted);
+}
+
+.sc-search-overlay__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 0;
+    font-family: Georgia, serif;
+}
+
+.sc-search-overlay__close:hover {
+    color: var(--ink);
+}
+
+/* =============================================================================
+   Footer
+   ============================================================================= */
+
+.sc-footer {
+    border-top: 1px solid var(--ink);
+    padding: 3rem 0 2.5rem;
+    margin-top: 5rem;
+}
+
+.sc-footer__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+}
+
+.sc-footer__columns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+}
+
+.sc-footer__subscribe {
+    flex: 1;
+    max-width: 340px;
+}
+
+.sc-footer__socials {
+    text-align: right;
+}
+
+.sc-footer__follow-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.sc-footer__social-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-end;
+}
+
+.sc-footer__social-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.sc-footer__social-links a:hover {
+    color: var(--rust);
+}
+
+/* Jetpack subscription form overrides */
+.sc-footer h2.widgettitle,
+#subscribe-blog-desc,
+.wp-block-jetpack-subscriptions__title {
+    display: none !important;
+}
+
+form[id^="subscribe-blog"] {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 340px;
+}
+
+#subscribe-email {
+    margin: 0;
+    padding: 0;
+}
+
+#subscribe-email input[type="email"] {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--ink) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0.25rem 0 !important;
+    font-family: Georgia, serif !important;
+    font-size: 0.875rem !important;
+    font-style: italic !important;
+    color: var(--ink) !important;
+    outline: none !important;
+    width: 100% !important;
+}
+
+#subscribe-email input[type="email"]::placeholder {
+    color: var(--muted);
+}
+
+#subscribe-submit {
+    background: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+}
+
+#subscribe-submit button,
+#subscribe-submit .wp-block-button__link {
+    background: var(--rust) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    color: var(--paper) !important;
+    font-family: Georgia, serif !important;
+    font-size: 0.7rem !important;
+    letter-spacing: 0.2em !important;
+    text-transform: uppercase !important;
+    padding: 0.6rem 2rem !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    display: inline-block !important;
+}
+
+#subscribe-submit button:hover,
+#subscribe-submit .wp-block-button__link:hover {
+    background: var(--ink) !important;
+}
+
+.sc-footer__copy {
+    margin-top: 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+}
+
+/* =============================================================================
+   Splash Page
+   ============================================================================= */
+
+.sc-splash {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 3rem var(--pad);
+}
+
+.sc-splash__title {
+    font-size: 3.5rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-style: normal;
+    font-weight: normal;
+    margin-bottom: 1.25rem;
+}
+
+.sc-splash__tagline {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.sc-splash__rule {
+    width: 2.5rem;
+    border: none;
+    border-top: 1px solid var(--ink);
+    margin-bottom: 2rem;
+}
+
+.sc-splash__nav {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.sc-splash__nav a {
+    font-size: 1rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.sc-splash__nav a:hover {
+    color: var(--rust);
+}
+
+/* =============================================================================
+   Page Header (section title strip)
+   ============================================================================= */
+
+.sc-page-header {
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 0;
+}
+
+.sc-page-header__label {
+    font-size: 1.1rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* =============================================================================
+   Post Card (shared: home, archive, search)
+   ============================================================================= */
+
+.sc-post-list {
+    list-style: none;
+}
+
+.sc-post-card {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 1.5rem;
+    row-gap: 0.3rem;
+    align-items: start;
+}
+
+.sc-post-card__title {
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 1.35;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.sc-post-card__title a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.sc-post-card__title a:hover {
+    color: var(--rust);
+}
+
+.sc-post-card__category {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    grid-column: 2;
+    grid-row: 1;
+    white-space: nowrap;
+    padding-top: 0.3rem;
+    text-decoration: none;
+}
+
+.sc-post-card__category:hover {
+    text-decoration: underline;
+}
+
+.sc-post-card__meta {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    grid-column: 1 / -1;
+    grid-row: 2;
+}
+
+/* =============================================================================
+   Pagination
+   ============================================================================= */
+
+.sc-pagination {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.sc-pagination a {
+    color: var(--rust);
+}
+
+.sc-pagination span {
+    color: var(--muted);
+}
+
+/* =============================================================================
+   Single Post
+   ============================================================================= */
+
+.sc-single__header {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 2.5rem;
+}
+
+.sc-single__category {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.sc-single__title {
+    font-size: 1.875rem;
+    font-style: italic;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.sc-single__meta {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+}
+
+.sc-single__featured-image {
+    margin: 0 calc(-1 * var(--pad)) 2.5rem;
+}
+
+.sc-single__featured-image img {
+    width: 100%;
+}
+
+.sc-single__content {
+    line-height: 1.85;
+}
+
+.sc-single__content p {
+    margin-bottom: 1.375rem;
+    text-align: justify;
+    hyphens: auto;
+}
+
+.sc-single__content h2 {
+    font-size: 1.375rem;
+    font-style: italic;
+    font-weight: normal;
+    margin: 2.5rem 0 0.75rem;
+}
+
+.sc-single__content h3 {
+    font-size: 1.125rem;
+    font-style: italic;
+    font-weight: normal;
+    margin: 2rem 0 0.5rem;
+}
+
+.sc-single__content img {
+    margin: 2rem auto;
+    max-width: 100%;
+}
+
+.sc-single__content blockquote {
+    border-left: 3px solid var(--rust);
+    padding-left: 1.25rem;
+    margin: 1.75rem 0;
+    font-style: italic;
+    color: var(--muted);
+}
+
+.sc-single__content blockquote p {
+    margin-bottom: 0;
+}
+
+.sc-single__content ul,
+.sc-single__content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.375rem;
+}
+
+.sc-single__content li {
+    margin-bottom: 0.375rem;
+}
+
+.sc-single__tags {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+}
+
+.sc-single__tags a {
+    color: var(--muted);
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.sc-single__tags a:hover {
+    color: var(--rust);
+}
+
+/* =============================================================================
+   The Rider
+   ============================================================================= */
+
+.sc-rider__content {
+    padding-top: 2.5rem;
+    line-height: 1.85;
+}
+
+.sc-rider__content p {
+    margin-bottom: 1.375rem;
+    text-align: justify;
+    hyphens: auto;
+}
+
+.sc-rider__socials {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.sc-rider__social-link {
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    text-decoration: none;
+}
+
+.sc-rider__social-link:hover {
+    text-decoration: underline;
+}
+
+/* =============================================================================
+   The Bike
+   ============================================================================= */
+
+.sc-bike__intro {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--ink);
+}
+
+.sc-bike__intro-text {
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+}
+
+.sc-bike__intro-text p {
+    margin-bottom: 1.25rem;
+    text-align: justify;
+    hyphens: auto;
+}
+
+.sc-bike__specs {
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.sc-bike__spec {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.sc-bike__spec-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.sc-bike__spec-value {
+    font-size: 0.875rem;
+    color: var(--ink);
+    font-style: italic;
+}
+
+/* Timeline */
+.sc-timeline__heading {
+    font-size: 0.62rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: normal;
+    font-style: normal;
+    padding: 2rem 0 1rem;
+    border-bottom: 1px solid var(--ink);
+}
+
+.sc-timeline {
+    list-style: none;
+}
+
+.sc-timeline-entry {
+    padding: 1.375rem 0 1.375rem 1.25rem;
+    border-left: 3px solid rgba(192, 98, 47, 0.25);
+    border-bottom: 1px solid var(--rule);
+}
+
+.sc-timeline-entry:last-child {
+    border-bottom: none;
+}
+
+.sc-timeline-entry__meta {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+}
+
+.sc-timeline-entry__title {
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: normal;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    line-height: 1.35;
+}
+
+.sc-timeline-entry__type {
+    display: inline-block;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.5rem;
+}
+
+.sc-timeline-entry__notes {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-top: 0.25rem;
+}
+
+/* =============================================================================
+   Archive & Search headings
+   ============================================================================= */
+
+.sc-archive__heading {
+    font-size: 0.62rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: normal;
+    font-style: normal;
+    padding: 2.5rem 0 1.25rem;
+    border-bottom: 1px solid var(--ink);
+}
+
+.sc-archive__heading h1 {
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.sc-archive__heading mark {
+    background: none;
+    color: var(--rust);
+}
+
+.sc-no-results {
+    padding: 3rem 0;
+    font-style: italic;
+    color: var(--muted);
+}
+
+/* =============================================================================
+   Responsive
+   ============================================================================= */
+
+@media (max-width: 768px) {
+    :root {
+        --pad: 1.125rem;
+    }
+
+    /* Nav */
+    .sc-nav {
+        display: none;
+    }
+
+    .sc-nav__hamburger {
+        display: block;
+    }
+
+    /* Single post */
+    .sc-single__title {
+        font-size: 1.5rem;
+    }
+
+    .sc-single__featured-image {
+        margin-left: calc(-1 * var(--pad));
+        margin-right: calc(-1 * var(--pad));
+    }
+
+    /* Jetpack form */
+    #subscribe-form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #subscribe-email {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Bike specs */
+    .sc-bike__specs {
+        gap: 1.25rem;
+    }
+
+    /* Socials */
+    .sc-rider__socials {
+        flex-direction: column;
+        gap: 0.875rem;
+    }
+
+    /* Splash nav */
+    .sc-splash__nav {
+        flex-direction: column;
+        gap: 1.25rem;
+        align-items: center;
+    }
+
+    /* Splash typography */
+    .sc-splash__title {
+        font-size: 1.75rem;
+    }
+
+    .sc-splash__tagline {
+        font-size: 1rem;
+    }
+}
