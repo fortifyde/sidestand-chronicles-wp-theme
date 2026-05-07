@@ -18,17 +18,17 @@
             </div>
 
             <?php
-            $instagram = get_option( 'sc_instagram_url' );
-            $youtube   = get_option( 'sc_youtube_url' );
-            if ( $instagram || $youtube ) :
+            $pixelfed = get_option( 'sc_pixelfed_url' );
+            $youtube  = get_option( 'sc_youtube_url' );
+            if ( $pixelfed || $youtube ) :
             ?>
                 <div class="sc-footer__socials">
                     <ul class="sc-footer__social-links">
-                        <?php if ( $instagram ) : ?>
+                        <?php if ( $pixelfed ) : ?>
                             <li>
-                                <a href="<?php echo esc_url( $instagram ); ?>"
+                                <a href="<?php echo esc_url( $pixelfed ); ?>"
                                    target="_blank" rel="noopener noreferrer">
-                                    <?php esc_html_e( 'Instagram', 'sidestand-chronicles' ); ?>
+                                    <?php esc_html_e( 'Pixelfed', 'sidestand-chronicles' ); ?>
                                 </a>
                             </li>
                         <?php endif; ?>

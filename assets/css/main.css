@@ -100,7 +100,7 @@ img {
     text-transform: uppercase;
     color: var(--rust);
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
     text-decoration: none;
 }
 
@@ -195,6 +195,17 @@ img {
 .sc-nav--mobile a:hover,
 .sc-nav--mobile button:hover {
     color: var(--rust);
+}
+
+.sc-nav--mobile .sc-nav__search-item {
+    padding-top: 0.625rem;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--rule);
+}
+
+.sc-nav--mobile .sc-nav__search-btn {
+    display: block;
+    line-height: inherit;
 }
 
 /* =============================================================================
@@ -414,7 +425,7 @@ form[id^="subscribe-blog"] {
     text-transform: uppercase;
     color: var(--rust);
     font-style: normal;
-    font-weight: normal;
+    font-weight: bold;
     margin-bottom: 1.25rem;
 }
 
@@ -606,6 +617,12 @@ form[id^="subscribe-blog"] {
     hyphens: auto;
 }
 
+.sc-single__content p.has-text-align-center,
+.sc-single__content p.has-text-align-right {
+    text-align: revert;
+    hyphens: none;
+}
+
 .sc-single__content h2 {
     font-size: 1.375rem;
     font-style: italic;
@@ -620,9 +637,40 @@ form[id^="subscribe-blog"] {
     margin: 2rem 0 0.5rem;
 }
 
+/* Block editor image: break out the whole figure so the caption travels with it */
+.sc-single__content .wp-block-image {
+    display: block;
+    max-width: none;
+    width: clamp(100%, calc(100vw - 3rem), 1200px);
+    margin-left: calc((clamp(100%, calc(100vw - 3rem), 1200px) - 100%) / -2);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.sc-single__content .wp-block-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+}
+
+.sc-single__content .wp-element-caption,
+.sc-single__content figcaption {
+    font-size: 0.8rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Bare img tags pasted outside a block */
 .sc-single__content img {
-    margin: 2rem auto;
-    max-width: 100%;
+    display: block;
+    width: clamp(100%, calc(100vw - 3rem), 1200px);
+    margin-left: calc((clamp(100%, calc(100vw - 3rem), 1200px) - 100%) / -2);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .sc-single__content blockquote {
@@ -681,6 +729,12 @@ form[id^="subscribe-blog"] {
     hyphens: auto;
 }
 
+.sc-rider__content p.has-text-align-center,
+.sc-rider__content p.has-text-align-right {
+    text-align: revert;
+    hyphens: none;
+}
+
 /* =============================================================================
    The Bike
    ============================================================================= */
@@ -699,6 +753,11 @@ form[id^="subscribe-blog"] {
     margin-bottom: 1.25rem;
     text-align: justify;
     hyphens: auto;
+}
+
+.sc-bike__intro-text p.has-text-align-center {
+    text-align: center;
+    hyphens: none;
 }
 
 .sc-bike__specs {
@@ -823,6 +882,254 @@ form[id^="subscribe-blog"] {
 }
 
 /* =============================================================================
+   Comments
+   ============================================================================= */
+
+.sc-comments {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+}
+
+/* Count heading */
+.sc-comments__title {
+    font-size: 0.75rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2rem;
+}
+
+/* Comment list */
+.sc-comments__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+}
+
+.sc-comments__list .comment {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+.sc-comments__list .comment:first-child {
+    padding-top: 0;
+}
+
+.sc-comments__list .children {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0 2rem;
+    border-left: 2px solid var(--rule);
+    padding-left: 1.25rem;
+}
+
+/* Avatar row: avatar · name · date in one flex line */
+.comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Let avatar and name participate directly in the flex row */
+.comment-author {
+    display: contents;
+}
+
+.comment-author img {
+    border-radius: 50%;
+    display: block;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.comment-author .fn {
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--ink);
+}
+
+.comment-author .fn a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.comment-author .says {
+    display: none;
+}
+
+/* Separator dot before date */
+.comment-metadata::before {
+    content: '·';
+    color: var(--muted);
+    margin-right: 0.125rem;
+}
+
+.comment-metadata,
+.comment-metadata a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-decoration: none;
+}
+
+.comment-metadata a:hover {
+    color: var(--rust);
+}
+
+/* Comment body and reply indented to clear the avatar */
+.comment-content,
+.reply {
+    padding-left: calc(36px + 0.625rem);
+}
+
+.comment-content {
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.comment-content p {
+    margin-bottom: 0.75em;
+}
+
+.comment-content p:last-child {
+    margin-bottom: 0;
+}
+
+.reply {
+    margin-top: 0.5rem;
+}
+
+.comment-reply-link {
+    font-size: 0.8rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.comment-reply-link:hover {
+    color: var(--rust);
+}
+
+/* Awaiting moderation notice */
+.comment-awaiting-moderation {
+    font-size: 0.8rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--muted);
+    font-style: italic;
+    padding-left: calc(36px + 0.625rem);
+}
+
+/* Comment form */
+.sc-comments__form-title {
+    font-size: 0.75rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+}
+
+.sc-comments__form p {
+    margin-bottom: 1rem;
+}
+
+.sc-comments__form label {
+    display: block;
+    font-size: 0.8rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+}
+
+.sc-comments__form .required {
+    color: var(--rust);
+}
+
+.sc-comments__form input[type="text"],
+.sc-comments__form input[type="email"],
+.sc-comments__form textarea {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--rule);
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.sc-comments__form input[type="text"]:focus,
+.sc-comments__form input[type="email"]:focus,
+.sc-comments__form textarea:focus {
+    border-color: var(--ink);
+}
+
+/* Hide Jetpack "notify of new posts/comments" checkboxes in comment form */
+.comment-subscription-form,
+#subscribe-to-post-container,
+#subscribe-to-blog-comment-container {
+    display: none !important;
+}
+
+.sc-comments__form textarea {
+    resize: vertical;
+    min-height: 7rem;
+    line-height: 1.6;
+}
+
+.comment-form-email__note {
+    display: block;
+    font-size: 0.75rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--muted);
+    margin-top: 0.35rem;
+}
+
+.sc-comments__submit {
+    display: inline-block;
+    background: var(--rust);
+    color: var(--paper);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.8rem;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-top: 0.5rem;
+}
+
+.sc-comments__submit:hover {
+    opacity: 0.85;
+}
+
+/* "Logged in as" notice */
+.sc-comments__form .logged-in-as {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-bottom: 1rem;
+}
+
+.sc-comments__form .logged-in-as a {
+    color: var(--muted);
+}
+
+/* =============================================================================
    Responsive
    ============================================================================= */
 
@@ -881,5 +1188,11 @@ form[id^="subscribe-blog"] {
 
     .sc-splash__tagline {
         font-size: 1rem;
+    }
+
+    /* Comments */
+    .sc-comments__list .children {
+        margin-left: 1rem;
+        padding-left: 0.75rem;
     }
 }

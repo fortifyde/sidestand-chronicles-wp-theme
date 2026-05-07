@@ -9,18 +9,17 @@
         </header>
 
         <section class="sc-bike__intro">
+            <?php if ( have_posts() ) : the_post(); ?>
+                <div class="sc-bike__intro-text">
+                    <?php the_content(); ?>
+                </div>
+            <?php endif; ?>
+
             <?php
-            $intro       = get_option( 'sc_bike_intro' );
             $build_year  = get_option( 'sc_bike_build_year' );
             $mileage     = get_option( 'sc_bike_mileage' );
             $acquisition = get_option( 'sc_bike_acquisition' );
             ?>
-
-            <?php if ( $intro ) : ?>
-                <div class="sc-bike__intro-text">
-                    <?php echo wp_kses( wpautop( $intro ), [ 'p' => [], 'br' => [] ] ); ?>
-                </div>
-            <?php endif; ?>
 
             <?php if ( $build_year || $mileage || $acquisition ) : ?>
                 <dl class="sc-bike__specs">

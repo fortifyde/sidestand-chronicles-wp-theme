@@ -233,12 +233,9 @@ function sc_register_settings() {
     foreach ( $text_fields as $key ) {
         register_setting( 'sc_options_group', $key, [ 'sanitize_callback' => 'sanitize_text_field' ] );
     }
-    foreach ( [ 'sc_instagram_url', 'sc_youtube_url' ] as $key ) {
+    foreach ( [ 'sc_pixelfed_url', 'sc_youtube_url' ] as $key ) {
         register_setting( 'sc_options_group', $key, [ 'sanitize_callback' => 'esc_url_raw' ] );
     }
-    register_setting( 'sc_options_group', 'sc_bike_intro', [
-        'sanitize_callback' => 'sanitize_textarea_field',
-    ] );
 }
 add_action( 'admin_init', 'sc_register_settings' );
 
@@ -282,12 +279,12 @@ function sc_options_page_html() {
             <table class="form-table">
                 <tr>
                     <th scope="row">
-                        <label for="sc_instagram_url"><?php esc_html_e( 'Instagram URL', 'sidestand-chronicles' ); ?></label>
+                        <label for="sc_pixelfed_url"><?php esc_html_e( 'Pixelfed URL', 'sidestand-chronicles' ); ?></label>
                     </th>
                     <td>
-                        <input type="url" id="sc_instagram_url" name="sc_instagram_url"
-                               value="<?php echo esc_url( get_option( 'sc_instagram_url' ) ); ?>"
-                               class="regular-text" placeholder="https://instagram.com/yourhandle">
+                        <input type="url" id="sc_pixelfed_url" name="sc_pixelfed_url"
+                               value="<?php echo esc_url( get_option( 'sc_pixelfed_url' ) ); ?>"
+                               class="regular-text" placeholder="https://pixelfed.social/yourhandle">
                     </td>
                 </tr>
                 <tr>
@@ -337,18 +334,7 @@ function sc_options_page_html() {
                                class="regular-text" placeholder="Purchased second-hand in São Paulo, March 2024">
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">
-                        <label for="sc_bike_intro"><?php esc_html_e( 'Bike Intro Text', 'sidestand-chronicles' ); ?></label>
-                    </th>
-                    <td>
-                        <textarea id="sc_bike_intro" name="sc_bike_intro"
-                                  rows="6" class="large-text"><?php echo esc_textarea( get_option( 'sc_bike_intro' ) ); ?></textarea>
-                        <p class="description">
-                            <?php esc_html_e( 'Intro paragraph displayed at the top of The Bike page, above the timeline.', 'sidestand-chronicles' ); ?>
-                        </p>
-                    </td>
-                </tr>
+
             </table>
 
             <?php submit_button(); ?>

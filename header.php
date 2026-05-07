@@ -68,7 +68,7 @@
                 'fallback_cb'    => 'sc_nav_fallback',
             ] );
             ?>
-            <li>
+            <li class="sc-nav__search-item">
                 <button class="sc-nav__search-btn"
                         aria-label="<?php esc_attr_e( 'Open search', 'sidestand-chronicles' ); ?>"
                         aria-expanded="false"
