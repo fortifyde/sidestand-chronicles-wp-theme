@@ -1,17 +1,21 @@
 <?php get_header(); ?>
 
-<main class="sc-splash">
-    <h1 class="sc-splash__title"><?php bloginfo( 'name' ); ?></h1>
+<main class="sc-main">
+    <div class="sc-container">
+        <header class="sc-archive__heading">
+            <h1>
+                <?php esc_html_e( 'Page not found', 'sidestand-chronicles' ); ?>
+            </h1>
+        </header>
 
-    <?php $tagline = get_option( 'sc_splash_tagline' ); ?>
-    <?php if ( $tagline ) : ?>
-        <p class="sc-splash__tagline"><?php echo esc_html( $tagline ); ?></p>
-    <?php endif; ?>
+        <p class="sc-no-results">
+            <?php esc_html_e( 'The page you&#8217;re looking for doesn&#8217;t exist or has been moved.', 'sidestand-chronicles' ); ?>
+        </p>
 
-    <hr class="sc-splash__rule">
-
-    <nav aria-label="<?php esc_attr_e( 'Main navigation', 'sidestand-chronicles' ); ?>">
-        <ul class="sc-splash__nav">
+        <ul class="sc-splash__nav" style="margin-top:2rem">
+            <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                <?php esc_html_e( 'Home', 'sidestand-chronicles' ); ?>
+            </a></li>
             <?php
             $rider = get_page_by_path( 'the-rider' );
             $bike  = get_page_by_path( 'the-bike' );
@@ -33,7 +37,7 @@
                 </a></li>
             <?php endif; ?>
         </ul>
-    </nav>
+    </div>
 </main>
 
 <?php get_footer(); ?>

@@ -55,8 +55,9 @@
             'post_type'      => 'sc_timeline_entry',
             'posts_per_page' => -1,
             'post_status'    => 'publish',
-            'orderby'        => 'meta_value',
             'meta_key'       => 'sc_entry_date',
+            'orderby'        => 'meta_value',
+            'meta_type'      => 'DATE',
             'order'          => 'DESC',
         ] );
         ?>

@@ -45,16 +45,21 @@
                 <?php
                 $tags = get_the_tags();
                 if ( $tags ) :
+                    $tag_links = array_map( function ( $tag ) {
+                        return '<a href="' . esc_url( get_tag_link( $tag->term_id ) ) . '">'
+                            . esc_html( $tag->name ) . '</a>';
+                    }, $tags );
                 ?>
                     <footer class="sc-single__tags">
                         <?php esc_html_e( 'Tags:', 'sidestand-chronicles' ); ?>
-                        <?php foreach ( $tags as $i => $tag ) : ?>
-                            <a href="<?php echo esc_url( get_tag_link( $tag->term_id ) ); ?>">
-                                <?php echo esc_html( $tag->name ); ?></a><?php echo $i < count( $tags ) - 1 ? ', ' : ''; ?>
-                        <?php endforeach; ?>
+                        <?php echo implode( ', ', $tag_links ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
                     </footer>
                 <?php endif; ?>
             </article>
+
+            <?php if ( comments_open() || get_comments_number() ) : ?>
+                <?php comments_template(); ?>
+            <?php endif; ?>
 
         <?php endwhile; ?>
     </div>

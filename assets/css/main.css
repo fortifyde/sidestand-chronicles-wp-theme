@@ -681,27 +681,6 @@ form[id^="subscribe-blog"] {
     hyphens: auto;
 }
 
-.sc-rider__socials {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--rule);
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.sc-rider__social-link {
-    font-size: 0.62rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--rust);
-    text-decoration: none;
-}
-
-.sc-rider__social-link:hover {
-    text-decoration: underline;
-}
-
 /* =============================================================================
    The Bike
    ============================================================================= */
@@ -887,11 +866,6 @@ form[id^="subscribe-blog"] {
         gap: 1.25rem;
     }
 
-    /* Socials */
-    .sc-rider__socials {
-        flex-direction: column;
-        gap: 0.875rem;
-    }
 
     /* Splash nav */
     .sc-splash__nav {

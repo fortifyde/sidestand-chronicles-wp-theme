@@ -8,17 +8,27 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if ( ! is_front_page() ) : ?>
 <header class="sc-header">
     <div class="sc-header__inner">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="sc-header__logo">
-            <?php bloginfo( 'name' ); ?>
+            <?php if ( has_custom_logo() ) : ?>
+                <?php the_custom_logo(); ?>
+            <?php else : ?>
+                <?php bloginfo( 'name' ); ?>
+            <?php endif; ?>
         </a>
 
         <button class="sc-nav__hamburger"
                 aria-label="<?php esc_attr_e( 'Open menu', 'sidestand-chronicles' ); ?>"
                 aria-expanded="false"
                 aria-controls="sc-nav-mobile">
-            &#9776;
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
         </button>
 
         <nav aria-label="<?php esc_attr_e( 'Primary navigation', 'sidestand-chronicles' ); ?>">
@@ -71,3 +81,4 @@
 </header>
 
 <?php get_template_part( 'template-parts/search-overlay' ); ?>
+<?php endif; ?>

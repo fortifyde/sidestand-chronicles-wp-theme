@@ -19,6 +19,16 @@ function sc_theme_setup() {
     load_theme_textdomain( 'sidestand-chronicles', get_template_directory() . '/languages' );
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'site-icon' );
+    add_theme_support( 'custom-logo', [
+        'height'      => 100,
+        'width'       => 350,
+        'flex-height' => true,
+        'flex-width'  => true,
+    ] );
+    add_theme_support( 'custom-background', [
+        'default-color' => 'faf6ef',
+    ] );
     add_theme_support( 'html5', [
         'search-form', 'comment-form', 'comment-list', 'gallery', 'caption',
     ] );
@@ -28,17 +38,28 @@ function sc_theme_setup() {
 }
 add_action( 'after_setup_theme', 'sc_theme_setup' );
 
+/**
+ * Add sc-splash-page body class on the front page.
+ */
+function sc_splash_body_class( $classes ) {
+    if ( is_front_page() ) {
+        $classes[] = 'sc-splash-page';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'sc_splash_body_class' );
+
 // =============================================================================
 // 2. Asset Enqueue
 // =============================================================================
 
 function sc_enqueue_assets() {
-    $ver = '1.0.0';
+    $dir = get_template_directory();
     $uri = get_template_directory_uri();
 
-    wp_enqueue_style(  'sc-main',   $uri . '/assets/css/main.css', [],           $ver );
-    wp_enqueue_script( 'sc-nav',    $uri . '/assets/js/nav.js',    [],           $ver, true );
-    wp_enqueue_script( 'sc-search', $uri . '/assets/js/search.js', [ 'sc-nav' ], $ver, true );
+    wp_enqueue_style(  'sc-main',   $uri . '/assets/css/main.css', [],           filemtime( $dir . '/assets/css/main.css' ) );
+    wp_enqueue_script( 'sc-nav',    $uri . '/assets/js/nav.js',    [],           filemtime( $dir . '/assets/js/nav.js' ), true );
+    wp_enqueue_script( 'sc-search', $uri . '/assets/js/search.js', [ 'sc-nav' ], filemtime( $dir . '/assets/js/search.js' ), true );
 }
 add_action( 'wp_enqueue_scripts', 'sc_enqueue_assets' );
 
@@ -353,3 +374,70 @@ function sc_nav_fallback() {
     if ( $bike )  printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $bike ) ),  esc_html__( 'The Bike',  'sidestand-chronicles' ) );
     if ( $road )  printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $road ) ),  esc_html__( 'The Road',  'sidestand-chronicles' ) );
 }
+
+// =============================================================================
+// 7. Open Graph + Meta Description
+// =============================================================================
+
+function sc_add_meta_tags() {
+    $site_name = get_bloginfo( 'name' );
+    $url       = esc_url( home_url( add_query_arg( [], $_SERVER['REQUEST_URI'] ?? '/' ) ) );
+    $image     = '';
+    $desc      = '';
+    $title     = '';
+    $type      = 'website';
+
+    if ( is_singular() ) {
+        global $post;
+        $title = get_the_title();
+        $type  = 'article';
+
+        // Description: manual excerpt → auto-excerpt → site tagline
+        if ( has_excerpt() ) {
+            $desc = wp_trim_words( get_the_excerpt(), 30, '' );
+        } elseif ( ! empty( $post->post_content ) ) {
+            $desc = wp_trim_words( wp_strip_all_tags( $post->post_content ), 30, '' );
+        }
+
+        // Image: featured image → site icon
+        if ( has_post_thumbnail() ) {
+            $img_id = get_post_thumbnail_id();
+            $image  = wp_get_attachment_image_url( $img_id, 'large' );
+        }
+    } elseif ( is_front_page() ) {
+        $title = $site_name;
+        $desc  = get_bloginfo( 'description' );
+    } elseif ( is_archive() ) {
+        $title = get_the_archive_title();
+        $desc  = get_bloginfo( 'description' );
+    }
+
+    if ( empty( $desc ) ) {
+        $desc = get_bloginfo( 'description' );
+    }
+
+    if ( empty( $image ) && has_site_icon() ) {
+        $image = get_site_icon_url( 512 );
+    }
+
+    $desc  = esc_attr( wp_strip_all_tags( $desc ) );
+    $title = esc_attr( wp_strip_all_tags( $title ?: $site_name ) );
+    ?>
+    <meta name="description" content="<?php echo $desc; // phpcs:ignore WordPress.Security.EscapeOutput ?>">
+    <meta property="og:title" content="<?php echo $title; // phpcs:ignore WordPress.Security.EscapeOutput ?>">
+    <meta property="og:description" content="<?php echo $desc; // phpcs:ignore WordPress.Security.EscapeOutput ?>">
+    <meta property="og:url" content="<?php echo esc_url( $url ); ?>">
+    <meta property="og:type" content="<?php echo esc_attr( $type ); ?>">
+    <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>">
+    <?php if ( $image ) : ?>
+        <meta property="og:image" content="<?php echo esc_url( $image ); ?>">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="<?php echo esc_url( $image ); ?>">
+    <?php else : ?>
+        <meta name="twitter:card" content="summary">
+    <?php endif; ?>
+    <meta name="twitter:title" content="<?php echo $title; // phpcs:ignore WordPress.Security.EscapeOutput ?>">
+    <meta name="twitter:description" content="<?php echo $desc; // phpcs:ignore WordPress.Security.EscapeOutput ?>">
+    <?php
+}
+add_action( 'wp_head', 'sc_add_meta_tags' );

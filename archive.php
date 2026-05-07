@@ -6,7 +6,6 @@
             <h1>
                 <?php
                 if ( is_category() ) {
-                    echo esc_html__( 'Country: ', 'sidestand-chronicles' );
                     echo '<mark>' . esc_html( single_cat_title( '', false ) ) . '</mark>';
                 } elseif ( is_tag() ) {
                     echo esc_html__( 'Tag: ', 'sidestand-chronicles' );
