@@ -1,3 +1,4 @@
+<?php if ( ! is_front_page() ) : ?>
 <footer class="sc-footer">
     <div class="sc-footer__inner">
         <p class="sc-footer__follow-label">
@@ -51,6 +52,7 @@
         </p>
     </div>
 </footer>
+<?php endif; ?>
 
 <?php wp_footer(); ?>
 </body>
